@@ -1,22 +1,22 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using MvcPayroll.Data;
 using MvcPayroll.Models;
-using System.ComponentModel.DataAnnotations;
+using MvcPayroll.Services;
 
 namespace MvcPayroll.Controllers
 {   
     public class EmployeesController : Controller
     {
-        private readonly PayrollContext _context;
-        public EmployeesController( PayrollContext context)
+        private readonly IEmployeeService _employeeService;
+        public EmployeesController( IEmployeeService employeeService)
         {
-            _context = context;
+            _employeeService = employeeService;
         }
         public IActionResult Index()
         {
-            var employee = _context.Employees.Where(e => e.IsActive).ToList();
-            return View(employee);
+            var result = _employeeService.GetActiveEmployees();
+            
+            return View(result);
         }
 
         public IActionResult Create() 
@@ -32,20 +32,18 @@ namespace MvcPayroll.Controllers
                 return View();
             }
 
-            _context.Employees.Add(employee);
-            _context.SaveChanges();
-            
+            _employeeService.CreateEmployee(employee);
+
             return RedirectToAction("index");
         }
 
         public IActionResult Edit(int id)
         {
-            var employee = _context.Employees.Find(id);
+            var employee = _employeeService.GetEmployeeById(id);
             if (employee == null)
             {
                 return NotFound();
             }
-
             return View(employee);
         }
 
@@ -57,14 +55,14 @@ namespace MvcPayroll.Controllers
             {
                 return View(employee);
             }
-            _context.Employees.Update(employee);
-            _context.SaveChanges();
-
+            _employeeService.UpdateEmployee(employee);
             return RedirectToAction("index");
+            
         }
+
         public IActionResult Delete(int id)
         {
-            var employee = _context.Employees.Find(id);
+            var employee = _employeeService.GetEmployeeById(id);
             if (employee == null)
             {
                 return NotFound();
@@ -77,17 +75,7 @@ namespace MvcPayroll.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            var emp = _context.Employees.Find(id);
-
-            if(emp == null)
-            {
-                return NotFound();
-            }
-
-            emp.IsActive =false;
-            
-            _context.Employees.Update(emp);
-            _context.SaveChanges();
+            _employeeService.DeactivateEmployee(id);
 
             return RedirectToAction("index");
         }
