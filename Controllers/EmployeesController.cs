@@ -15,7 +15,7 @@ namespace MvcPayroll.Controllers
         }
         public IActionResult Index()
         {
-            var employee = _context.Employees.ToList();
+            var employee = _context.Employees.Where(e => e.IsActive).ToList();
             return View(employee);
         }
 
@@ -58,6 +58,35 @@ namespace MvcPayroll.Controllers
                 return View(employee);
             }
             _context.Employees.Update(employee);
+            _context.SaveChanges();
+
+            return RedirectToAction("index");
+        }
+        public IActionResult Delete(int id)
+        {
+            var employee = _context.Employees.Find(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            return View(employee);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id)
+        {
+            var emp = _context.Employees.Find(id);
+
+            if(emp == null)
+            {
+                return NotFound();
+            }
+
+            emp.IsActive =false;
+            
+            _context.Employees.Update(emp);
             _context.SaveChanges();
 
             return RedirectToAction("index");

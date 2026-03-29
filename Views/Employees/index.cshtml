@@ -35,6 +35,10 @@
                     <a asp-action="Edit" asp-route-id="@employee.Id" 
                     class="btn btn-sm btn-warning">Edit</a>
                 </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@employee.Id" 
+                    class="btn btn-sm btn-danger">Deactivate</a>
+                </td>
             </tr>
         }
     </tbody>

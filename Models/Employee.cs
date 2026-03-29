@@ -6,7 +6,7 @@ namespace MvcPayroll.Models
     public class Employee
     {
         public int Id { get; set; }
-        public bool IsActive { get; set;}
+        public bool IsActive { get; set; } = true; // Default to active when created
         [Required]
         [StringLength(100)]
         public string? Name { get; set; }
