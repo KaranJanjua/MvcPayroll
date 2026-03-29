@@ -8,13 +8,13 @@ namespace MvcPayroll.Models
         public bool IsActive { get; set;}
         [Required]
         [StringLength(100)]
-        public string Name { get; set; }
+        public string? Name { get; set; }
         [Required]
-        public string Department { get; set; }
+        public string? Department { get; set; }
         [Required]
-        public string Office { get; set; }
+        public string? Office { get; set; }
         [Required]
-        public string Location { get; set; }
+        public string? Location { get; set; }
         [Required]
         [Display(Name = "Annual Salary")]
         [Range(1, 9999999)]
@@ -25,12 +25,12 @@ namespace MvcPayroll.Models
         [Required]
         [Display(Name = "Bank Account Number")]
         [StringLength(10, MinimumLength = 6)]
-        public string BankAccountNumber { get; set; }
+        public string? BankAccountNumber { get; set; }
         [Required]
         [EmailAddress]
         [StringLength(125)]
-        public string Email { get; set; }
-    };
+        public string? Email { get; set; }
+    }
 
     public enum PayFrequency 
     {
