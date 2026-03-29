@@ -1,0 +1,77 @@
+@model MvcPayroll.Models.Employee
+
+@{
+    ViewData["Title"] = "Edit Employee";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Department" class="form-label"></label>
+        <input asp-for="Department" class="form-control" />
+        <span asp-validation-for="Department" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Office" class="form-label"></label>
+        <input asp-for="Office" class="form-control" />
+        <span asp-validation-for="Office" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Location" class="form-label"></label>
+        <input asp-for="Location" class="form-control" />
+        <span asp-validation-for="Location" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="AnnualSalary" class="form-label"></label>
+        <input asp-for="AnnualSalary" class="form-control" />
+        <span asp-validation-for="AnnualSalary" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="PayFrequency" class="form-label"></label>
+        <select asp-for="PayFrequency" class="form-select"
+                asp-items="Html.GetEnumSelectList<MvcPayroll.Models.PayFrequency>()">
+        </select>
+        <span asp-validation-for="PayFrequency" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="BankAccountNumber" class="form-label"></label>
+        <input asp-for="BankAccountNumber" class="form-control" />
+        <span asp-validation-for="BankAccountNumber" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-check mb-3">
+        <input asp-for="IsActive" class="form-check-input" />
+        <label asp-for="IsActive" class="form-check-label"></label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

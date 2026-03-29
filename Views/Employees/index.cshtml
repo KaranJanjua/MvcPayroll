@@ -31,6 +31,10 @@
                 <td>@employee.PayFrequency</td>
                 <td>@employee.Email</td>
                 <td>@(employee.IsActive ? "Yes" : "No")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@employee.Id" 
+                    class="btn btn-sm btn-warning">Edit</a>
+                </td>
             </tr>
         }
     </tbody>

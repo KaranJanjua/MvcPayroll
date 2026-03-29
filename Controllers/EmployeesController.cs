@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using MvcPayroll.Data;
 using MvcPayroll.Models;
@@ -28,15 +29,37 @@ namespace MvcPayroll.Controllers
         public IActionResult Create(Employee employee) 
         {
             if (!ModelState.IsValid) { 
-                return Content("Validation failed: " + 
-                    string.Join(", ", ModelState.Values
-                        .SelectMany(v => v.Errors)
-                        .Select(e => e.ErrorMessage)));
+                return View();
             }
 
             _context.Employees.Add(employee);
             _context.SaveChanges();
             
+            return RedirectToAction("index");
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var employee = _context.Employees.Find(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+
+            return View(employee);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, Employee employee) 
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(employee);
+            }
+            _context.Employees.Update(employee);
+            _context.SaveChanges();
+
             return RedirectToAction("index");
         }
     }
