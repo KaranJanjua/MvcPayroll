@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MvcPayroll.Models
 {
@@ -17,6 +18,7 @@ namespace MvcPayroll.Models
         public string? Location { get; set; }
         [Required]
         [Display(Name = "Annual Salary")]
+        [Column(TypeName = "decimal(18,2)")]
         [Range(1, 9999999)]
         public decimal AnnualSalary { get; set; }
         [Required]
