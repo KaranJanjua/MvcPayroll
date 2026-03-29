@@ -1,0 +1,65 @@
+﻿@model MvcPayroll.Models.Employee
+@{
+    ViewData["Title"] = "Create Employee";
+}
+<h2>@ViewData["Title"]</h2>
+<form asp-controller="Employees" asp-action="Create" method="post" asp-antiforgery="true">
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" ></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Department" class="form-label"></label>
+        <input asp-for="Department" class="form-control" />
+        <span asp-validation-for="Department"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Office" class="form-label"></label>
+        <input asp-for="Office" class="form-control" />
+        <span asp-validation-for="Office"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Location" class="form-label"></label>
+        <input asp-for="Location" class="form-control" />
+        <span asp-validation-for="Location"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="AnnualSalary" class="form-label"></label>
+        <input asp-for="AnnualSalary" class="form-control" />
+        <span asp-validation-for="AnnualSalary"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="PayFrequency" class="form-label"></label>
+        <select asp-for="PayFrequency" class="form-select"
+            asp-items="Html.GetEnumSelectList<MvcPayroll.Models.PayFrequency>()">
+            <option value="">-- Select Pay Frequency --</option>
+        </select>
+        <span asp-validation-for="PayFrequency"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="BankAccountNumber" class="form-label"></label>
+        <input asp-for="BankAccountNumber" class="form-control" />
+        <span asp-validation-for="BankAccountNumber" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="Email"></span>
+    </div>
+
+     <div class="form-check mb-3">
+        <input asp-for="IsActive" class="form-check-input" />
+        <label asp-for="IsActive" class="form-check-label"></label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
